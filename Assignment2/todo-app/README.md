@@ -1,3 +1,7 @@
+# Assignment 2 React webpage using Github Copilot
+
+[Here](https://youtu.be/_fZ5HUl-Lvg) is a link to the youtube video for assignment 2
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
