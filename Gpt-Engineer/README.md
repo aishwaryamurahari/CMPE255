@@ -49,3 +49,6 @@ python main.py example
 
 Note: Replace "example" with the name of the folder that contains your main prompt file.
 After running the main file, GPT Engineer will prompt you for any areas of clarification or additional details you want to provide. You can provide as much information as needed. GPT Engineer will then start generating the code based on your prompts and specifications.
+
+## Youtube link about the project
+- [Link to Youtube](https://youtu.be/1zBOuXgqJuA)
