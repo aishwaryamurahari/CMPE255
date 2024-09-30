@@ -1,0 +1,37 @@
+I want to create a full-stack Expense Tracker Application using React for the frontend and Node.js with Express.js for the backend. Please generate the backend code first, followed by the frontend code, and separate them clearly using the following markers:
+
+- Use the marker: "### BACKEND CODE STARTS HERE ###" for the backend code.
+- Use the marker: "### FRONTEND CODE STARTS HERE ###" for the frontend code.
+
+### Application Details:
+
+1. **Frontend (React)**:
+   - Users can register and log in with JWT-based authentication.
+   - Dashboard to display all expenses in a list.
+   - Forms for adding, editing, and deleting expenses.
+   - Filter expenses by date range or category (e.g., food, transport, shopping).
+   - Show total expenses and provide visual insights using charts.
+   - Use React's `useState` and `useEffect` hooks to manage state.
+   - Axios or Fetch should be used for making API calls to the backend.
+
+2. **Backend (Node.js + Express.js)**:
+   - API routes for user authentication (register, login) using JWT.
+   - CRUD routes for managing expenses (add, update, delete, get).
+   - Middleware for protecting routes (only authenticated users can access).
+   - MongoDB for storing expenses and user data.
+   - Proper error handling and validation for user input.
+
+3. **Database**:
+   - Use MongoDB to store users and their associated expenses.
+   - Each user should only see their own expenses.
+   - An expense should have a title, amount, date, and category.
+
+4. **Design**:
+   - Modern UI with a minimalist design using CSS or a framework like TailwindCSS or Material-UI.
+   - Responsive layout for both mobile and desktop users.
+
+5. **Deployment**:
+   - Instructions for deploying the backend on Heroku and frontend on Netlify.
+
+Please ensure the backend code is marked with "### BACKEND CODE STARTS HERE ###" and the frontend code is marked with "### FRONTEND CODE STARTS HERE ###".
+

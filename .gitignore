@@ -1,3 +1,4 @@
 */**/.ipy*
 */**/pycaret_env
 */**/logs.log
+**/**/__pycache__
