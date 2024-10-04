@@ -23,3 +23,6 @@
 - [Forecasting Time Series](https://colab.research.google.com/drive/1t-HnLqviCeTLC4k3goKgDYgCrMEl3qn3?usp=sharing)
 - [Forecasting with Chronos](https://colab.research.google.com/drive/1tWKlNiAJxqLZYXjBFa-5id8yQpZ0zMmT?usp=sharing)
 - [Entity extraction in multi modal](https://colab.research.google.com/drive/1F-GL8BIPVnBZeb0DgRfsbaL-dT2tJH9t?usp=sharing)
+
+## Youtube Link
+- (Youtube)[https://youtu.be/4JPHpGbl128]
