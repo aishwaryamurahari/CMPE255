@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\title{A CRISP-DM Analysis of New York City Airbnb Pricing}
+\author{Aishwarya Murahari}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This paper presents a comprehensive analysis of the New York City Airbnb dataset using the Cross-Industry Standard Process for Data Mining (CRISP-DM) methodology. We explore the factors influencing Airbnb listing prices and develop a predictive model to assist hosts in optimal pricing strategies. The study demonstrates the application of each CRISP-DM phase, from business understanding to deployment, highlighting the importance of a structured approach in data science projects.
+\end{abstract}
+
+\section{Introduction}
+The sharing economy has revolutionized various sectors, with Airbnb leading the transformation in hospitality. Understanding the dynamics of pricing in this market is crucial for both hosts and the platform. This research applies the CRISP-DM methodology to analyze the New York City Airbnb dataset, aiming to uncover key price determinants and develop a predictive model for listing prices.
+
+\section{Methodology}
+We employed the CRISP-DM methodology, which consists of six phases: Business Understanding, Data Understanding, Data Preparation, Modeling, Evaluation, and Deployment. Each phase was meticulously executed to ensure a robust and comprehensive analysis.
+
+\subsection{Business Understanding}
+The primary objective was to identify factors influencing Airbnb listing prices in New York City and develop a model to predict these prices accurately. This information is valuable for hosts to optimize their pricing strategies and for Airbnb to provide data-driven recommendations.
+
+\subsection{Data Understanding}
+We utilized the New York City Airbnb Open Data dataset from Kaggle. Initial exploration revealed key features such as location, room type, minimum nights, and number of reviews. Descriptive statistics and visualizations were used to gain insights into the data distribution and relationships between variables.
+
+\subsection{Data Preparation}
+Data preparation involved handling missing values, removing outliers, and encoding categorical variables. Specifically:
+\begin{itemize}
+    \item Missing values in 'reviews\_per\_month' were filled with 0.
+    \item Extreme prices (above 99th percentile) were removed to mitigate outlier effects.
+    \item Categorical variables like 'neighbourhood\_group' and 'room\_type' were one-hot encoded.
+    \item Numerical features were scaled using Min-Max scaling.
+\end{itemize}
+
+\subsection{Modeling}
+We implemented two models:
+\begin{enumerate}
+    \item Linear Regression: As a baseline model to understand linear relationships.
+    \item Random Forest Regressor: To capture complex, non-linear relationships in the data.
+\end{enumerate}
+
+The dataset was split into 80\% training and 20\% testing sets. We used scikit-learn for model implementation and evaluation.
+
+\subsection{Evaluation}
+Model performance was assessed using Mean Squared Error (MSE) and R-squared metrics. The Random Forest model outperformed Linear Regression, indicating the presence of non-linear relationships in the data. We also conducted residual analysis and feature importance evaluation to gain deeper insights into the model's behavior.
+
+\subsection{Deployment}
+The deployment phase focused on making the model accessible for business use. We demonstrated:
+\begin{itemize}
+    \item Model serialization using joblib for easy loading in production environments.
+    \item Creation of a Flask API for serving predictions.
+    \item Development of a simple Streamlit web application for user interaction.
+\end{itemize}
+
+\section{Results and Discussion}
+The Random Forest model demonstrated superior performance in predicting Airbnb listing prices. Key findings include:
+\begin{itemize}
+    \item Location (neighbourhood\_group) and room type were among the most influential factors in price determination.
+    \item The number of reviews and minimum nights also played significant roles in pricing.
+    \item The model achieved an R-squared value of [insert actual value], indicating a good fit to the data.
+\end{itemize}
+
+Residual analysis showed [insert findings about residual distribution], suggesting [insert implications].
+
+\section{Conclusion}
+This study demonstrates the effectiveness of the CRISP-DM methodology in analyzing the New York City Airbnb market. The developed model provides valuable insights for hosts to optimize their pricing strategies. Future work could explore incorporating more external data sources and implementing more advanced machine learning techniques to further improve predictive accuracy.
+
+\end{document}

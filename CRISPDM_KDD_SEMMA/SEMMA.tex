@@ -1,0 +1,233 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{geometry}
+\usepackage{booktabs}
+\geometry{margin=1in}
+
+\title{Applying the SEMMA Methodology to HR Analytics: \\A Predictive Study on Job Change}
+\author{Aishwarya Murahari}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This paper presents a comprehensive application of the SEMMA (Sample, Explore, Modify, Model, Assess) methodology to the HR Analytics: Job Change of Data Scientists dataset from Kaggle. The study aims to predict whether a candidate is likely to switch jobs based on various features. We detail each phase of the SEMMA process, from initial data sampling and exploration to model building and assessment. A logistic regression model is developed, achieving an accuracy of 78\% and an AUC score of 0.84. The paper demonstrates the effectiveness of the SEMMA methodology in guiding data science projects and provides insights into factors influencing job changes in the data science field.
+\end{abstract}
+
+\section{Introduction}
+In the rapidly evolving field of data science, understanding and predicting employee behavior, particularly job changes, is crucial for organizations. This research applies the SEMMA (Sample, Explore, Modify, Model, Assess) methodology, a structured approach to data mining and predictive modeling, to analyze the HR Analytics: Job Change of Data Scientists dataset from Kaggle.
+
+The SEMMA methodology, developed by SAS Institute, provides a systematic framework for conducting data mining projects. It consists of five phases:
+\begin{itemize}
+    \item Sample: Selecting a representative subset of data
+    \item Explore: Visualizing and describing the data to gain insights
+    \item Modify: Preparing the data for modeling
+    \item Model: Applying various modeling techniques
+    \item Assess: Evaluating the model's performance and reliability
+\end{itemize}
+
+Our objective is to predict whether a candidate is likely to switch jobs based on various features such as demographics, work experience, and education. By following the SEMMA methodology, we aim to demonstrate its effectiveness in guiding data science projects and provide insights into factors influencing job changes in the data science field.
+
+\section{Methodology}
+
+\subsection{Sample}
+The dataset used in this study is the HR Analytics: Job Change of Data Scientists, obtained from Kaggle. It contains information about data science job candidates, including their current employment status, demographics, education, and experience.
+
+\begin{verbatim}
+import pandas as pd
+
+# Load the dataset
+df = pd.read_csv('aug_train.csv')
+
+# Display basic information
+print(df.info())
+print("\nDataset shape:", df.shape)
+print("\nMissing values:\n", df.isnull().sum())
+\end{verbatim}
+
+The dataset consists of 19,158 rows and 14 features. Initial analysis revealed the presence of missing values in several columns, which were addressed in the Modify phase.
+
+\subsection{Explore}
+In the Explore phase, we conducted a thorough examination of the dataset to understand the distribution of features and identify potential patterns or relationships.
+
+\begin{verbatim}
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Visualize categorical features
+categorical_columns = ['gender', 'relevent_experience', 'enrolled_university',
+                       'education_level', 'company_size', 'company_type']
+for col in categorical_columns:
+    plt.figure(figsize=(10, 6))
+    sns.countplot(data=df, x=col)
+    plt.title(f'Distribution of {col}')
+    plt.xticks(rotation=45)
+    plt.show()
+
+# Visualize numerical features
+numeric_columns = ['training_hours', 'city_development_index']
+for col in numeric_columns:
+    plt.figure(figsize=(10, 6))
+    sns.histplot(df[col], kde=True)
+    plt.title(f'Distribution of {col}')
+    plt.show()
+\end{verbatim}
+
+Key findings from the exploration phase include:
+\begin{itemize}
+    \item Significant gender imbalance with a majority of male candidates
+    \item Right-skewed distribution of training hours
+    \item Normal distribution of city development index with a slight skew towards higher values
+    \item Presence of missing values in several categorical features
+\end{itemize}
+
+\subsection{Modify}
+The Modify phase involved data cleaning, handling missing values, and preparing the dataset for modeling.
+
+\begin{verbatim}
+# Handle missing values
+for col in categorical_columns:
+    df[col].fillna(df[col].mode()[0], inplace=True)
+df['training_hours'].fillna(df['training_hours'].median(), inplace=True)
+
+# Encode categorical variables
+df_encoded = pd.get_dummies(df, columns=categorical_columns, drop_first=True)
+
+# Scale numerical features
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+df_encoded[['training_hours', 'city_development_index']] = \
+    scaler.fit_transform(df_encoded[['training_hours', 'city_development_index']])
+\end{verbatim}
+
+In this phase, we:
+\begin{itemize}
+    \item Imputed missing values in categorical columns with the mode
+    \item Filled missing values in numerical columns with the median
+    \item Applied one-hot encoding to categorical variables
+    \item Scaled numerical features using StandardScaler
+\end{itemize}
+
+\subsection{Model}
+For the modeling phase, we chose logistic regression as our baseline model due to its interpretability and efficiency in binary classification tasks.
+
+\begin{verbatim}
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
+
+# Prepare features and target
+X = df_encoded.drop('target', axis=1)
+y = df_encoded['target']
+
+# Split the data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train the model
+model = LogisticRegression(max_iter=1000)
+model.fit(X_train, y_train)
+
+# Make predictions
+y_pred = model.predict(X_test)
+\end{verbatim}
+
+We split the data into training (80%) and testing (20%) sets and trained a logistic regression model with a maximum of 1000 iterations.
+
+\subsection{Assess}
+In the final phase, we assessed the model's performance using various evaluation metrics.
+
+\begin{verbatim}
+from sklearn.metrics import roc_auc_score, roc_curve
+
+# Calculate and print evaluation metrics
+print("Classification Report:\n", classification_report(y_test, y_pred))
+print("Accuracy Score:", accuracy_score(y_test, y_pred))
+
+# ROC Curve and AUC Score
+y_pred_prob = model.predict_proba(X_test)[:, 1]
+roc_auc = roc_auc_score(y_test, y_pred_prob)
+
+fpr, tpr, _ = roc_curve(y_test, y_pred_prob)
+plt.figure(figsize=(8, 6))
+plt.plot(fpr, tpr, label=f'AUC = {roc_auc:.2f}')
+plt.plot([0, 1], [0, 1], linestyle='--')
+plt.title('ROC Curve')
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.legend(loc='lower right')
+plt.show()
+
+print(f"AUC Score: {roc_auc:.2f}")
+\end{verbatim}
+
+\section{Results and Discussion}
+The logistic regression model achieved the following performance metrics:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lc}
+\toprule
+Metric & Value \\
+\midrule
+Accuracy & 78\% \\
+AUC Score & 0.84 \\
+\bottomrule
+\end{tabular}
+\caption{Model Performance Metrics}
+\label{tab:performance}
+\end{table}
+
+The model demonstrates good predictive capability, with an accuracy of 78\% and an AUC score of 0.84. The ROC curve (Figure \ref{fig:roc_curve}) illustrates the model's ability to distinguish between candidates likely to switch jobs and those who are not.
+
+\begin{figure}[H]
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{download (11).png}
+    \label{fig:enter-label}
+\end{figure}
+\caption{ROC Curve of the Logistic Regression Model}
+\label{fig:roc_curve}
+\end{figure}
+
+These results indicate that the SEMMA methodology effectively guided us through the process of building a predictive model for job change likelihood. The structured approach allowed for systematic data exploration, preparation, and model development.
+
+\section{Conclusion}
+This study demonstrates the application of the SEMMA methodology to predict job changes in the data science field using the HR Analytics dataset. By following the Sample, Explore, Modify, Model, and Assess phases, we developed a logistic regression model that shows promising results in predicting whether a candidate is likely to switch jobs.
+
+The SEMMA approach provided a structured framework for tackling this data science problem, guiding us through each step of the process from initial data exploration to final model assessment. This methodology proved effective in organizing our workflow and ensuring a thorough analysis of the dataset.
+
+While the logistic regression model performed well, there is room for improvement. Future work could focus on:
+\begin{itemize}
+    \item Experimenting with more advanced algorithms such as Random Forests or Gradient Boosting methods
+    \item Conducting feature selection to identify the most influential predictors of job change
+    \item Applying techniques to address class imbalance, such as SMOTE (Synthetic Minority Over-sampling Technique)
+    \item Performing hyperparameter tuning to optimize model performance
+\end{itemize}
+
+In conclusion, the SEMMA methodology provides a robust framework for data science projects, as demonstrated in this study of job change prediction. Its structured approach ensures comprehensive data analysis and model development, making it a valuable tool for data scientists and researchers in various fields.
+
+\bibliographystyle{plain}
+\begin{thebibliography}{9}
+
+\bibitem{SEMMA}
+SAS Institute Inc. (2021). SEMMA Methodology.
+\url{https://www.sas.com/en_us/insights/analytics/semma.html}
+
+\bibitem{Kaggle}
+Kaggle. (2021). HR Analytics: Job Change of Data Scientists Dataset.
+\url{https://www.kaggle.com/arashnic/hr-analytics-job-change-of-data-scientists}
+
+\bibitem{LogisticRegression}
+Hastie, T., Tibshirani, R., \& Friedman, J. (2009). The elements of statistical learning: data mining, inference, and prediction. Springer Science \& Business Media.
+
+\bibitem{ROC}
+Fawcett, T. (2006). An introduction to ROC analysis. Pattern recognition letters, 27(8), 861-874.
+
+\end{thebibliography}
+
+\end{document}
