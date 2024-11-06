@@ -53,4 +53,4 @@ The notebook concludes with:
 - **Data Insights**: Summary statistics, correlations, and visual patterns.
 - **Forecasting**: Predicted future values based on time series analysis.
 
-- [https://colab.research.google.com/drive/1oNBpJuDrbIQqsi0BO0EL2MERzNDjvw5G?usp=sharing](Link to colab)
+- [https://colab.research.google.com/drive/1oNBpJuDrbIQqsi0BO0EL2MERzNDjvw5G?usp=sharing] (Link to colab)
