@@ -11,7 +11,6 @@ A machine learning project using AutoViML to predict house prices based on the Z
 - [Configuration](#configuration)
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Installation
 
@@ -127,4 +126,4 @@ for col in train_data.columns:
 - Contributors and maintainers
 
 
-- [https://colab.research.google.com/drive/1aIhdsrxlYYIN00n_IOOgIrLbmrJCURtX?usp=sharing](Link to colab)
+- [https://colab.research.google.com/drive/1aIhdsrxlYYIN00n_IOOgIrLbmrJCURtX?usp=sharing] (Link to colab)
