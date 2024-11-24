@@ -14,6 +14,6 @@
 
 [Clustering Images using ImageBind LLM Embeddings.](https://colab.research.google.com/drive/11SucUaftzer9m4CbjDeX0mPbMeUU562t?usp=sharing)
 
-[Clustering Audio files using ImageBind LLM Embeddings.]()
+[Clustering Audio files using ImageBind LLM Embeddings.](https://colab.research.google.com/drive/1E-D3y0kmPgDCUxCfqN19UOFZfqZyQH8U?usp=sharing)
 
 [Youtube Link]()
