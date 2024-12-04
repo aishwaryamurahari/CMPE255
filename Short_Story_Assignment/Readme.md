@@ -4,7 +4,7 @@
 
 [Link to slideshare](https://www.slideshare.net/slideshow/out-of-core-dimensionality-reduction-pptx/273825132#4)
 
-[Youtube Link]()
+[Youtube Link](https://youtu.be/WOtX21Kw7D0)
 
 
 ## Abstract
